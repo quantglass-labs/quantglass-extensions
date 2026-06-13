@@ -1,0 +1,2 @@
+# The extension SDK. Until quantglass-sdk is published to PyPI, install from its repo:
+quantglass-sdk @ git+https://github.com/quantglass-labs/quantglass-sdk.git
