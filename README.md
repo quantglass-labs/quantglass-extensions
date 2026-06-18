@@ -26,9 +26,12 @@ python -m venv .venv
 python -c "from quantglass_sdk import ExtensionManifest, StrategyDefinition; print('SDK ready')"
 ```
 
-Then read [docs/extensions.md](docs/extensions.md) for the authoring model and
-the capability/permission vocabulary, and copy the closest template under
-`examples/` or `packs/`.
+**New here? Start with the illustrated walkthrough:
+[docs/guides/getting-started.md](docs/guides/getting-started.md)** — empty folder
+to an extension the app loads, in ~10 minutes. Then read
+[docs/extensions.md](docs/extensions.md) for the full authoring model and the
+capability/permission vocabulary, and copy the closest template under `examples/`
+or `packs/`.
 
 ## How extensions load
 
