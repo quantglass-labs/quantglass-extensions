@@ -45,7 +45,7 @@ OHLCV adapters must return candles matching `REQUIRED_CANDLE_FIELDS`; validate w
 the SDK's `validate_candles` (the same checker the host uses) before returning:
 
 ```python
-from quantglass_sdk import validate_candles
+from quantglass_sdk.validation import validate_candles
 problems = validate_candles(candles)   # [] = clean
 ```
 

@@ -86,7 +86,7 @@ the engine rejects it. Validate before you hand it over — the SDK ships the sa
 checker the host uses:
 
 ```python
-from quantglass_sdk import validate_candles  # REQUIRED_CANDLE_FIELDS enforced
+from quantglass_sdk.validation import validate_candles  # REQUIRED_CANDLE_FIELDS enforced
 
 problems = validate_candles(candles)   # [] means clean
 # required per candle: open_time_utc, open, high, low, close, volume
