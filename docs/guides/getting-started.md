@@ -267,21 +267,17 @@ the top of this guide).
 
 ## Where to go next
 
-Each surface has a reference contract today; step-by-step guides (in this same
-illustrated style) are being added on top of them:
-
-| Build a… | Reference contract |
+| Build a… | Guide |
 | --- | --- |
-| Market-data / news / broker adapter | [Provider adapters](../provider-adapters.md) |
-| Strategy / signal plugin | [Strategy & signal plugins](../strategy-plugins.md) |
-| Deterministic indicator | [Indicator contract](../indicator-contract.md) |
-| The full authoring model & vocabulary | [Extensions](../extensions.md) · [Extension types](../extension-types.md) |
+| Market-data / news / broker / AI adapter | [Provider adapters](provider-adapter.md) |
+| Strategy / signal plugin | [Strategy & signal plugins](strategy-plugin.md) |
+| Deterministic indicator | [Indicators](indicator.md) |
+| Lesson or mission pack (and the localization story) | [Content packs & localization](content-packs-localization.md) |
+| Manifest, permissions, packaging, installation | [Packaging, permissions & trust](packaging-and-trust.md) |
 
-The full symbol surface lives in the
+Reference contracts and the full vocabulary live in
+[`docs/extensions.md`](../extensions.md), [`docs/extension-types.md`](../extension-types.md),
+and the per-surface reference docs; the complete symbol surface is in the
 [`quantglass-sdk`](https://github.com/quantglass-labs/quantglass-sdk) README.
-
-> **Coming next in this series:** _Content packs & localization_ — how to author a
-> lesson or mission pack and ship it in any of QuantGlass's 20 languages — and
-> _Packaging, permissions & trust_.
 
 > Educational and research tooling. Nothing here is financial advice.
