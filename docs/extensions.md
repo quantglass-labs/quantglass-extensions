@@ -1,5 +1,9 @@
 # QuantGlass Extensions
 
+> 📘 **Prefer a walkthrough?** The illustrated, step-by-step
+> **[guides](guides/README.md)** build each surface end to end. This page is the
+> authoring-model reference.
+
 QuantGlass extensions let contributors add provider adapters, AI model gateways,
 indicators, strategies, and notification channels without changing the core app
 first.
@@ -93,10 +97,10 @@ class ExampleExtension:
         return {"status": "ok"}
 ```
 
-See [`examples/extensions/example_extension.py`](../../examples/extensions/example_extension.py)
+See [`examples/extensions/example_extension.py`](../examples/extensions/example_extension.py)
 for a minimal package-style extension, and
-[`extensions/community_momentum_pack.py`](../../extensions/community_momentum_pack.py)
-for an executable repo-local strategy/indicator pack.
+[`packs/community_momentum_pack.py`](../packs/community_momentum_pack.py)
+for an executable strategy/indicator pack.
 
 ## Contribution areas
 
