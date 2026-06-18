@@ -1,5 +1,8 @@
 # Extension Types
 
+> 📘 Building one of these? Each lane has a step-by-step
+> **[guide](guides/README.md)**. This page is the catalog of lanes and their status.
+
 QuantGlass should grow as a community platform around small, testable extension
 surfaces. These are the supported or planned contribution lanes.
 

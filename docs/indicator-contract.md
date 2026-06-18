@@ -1,53 +1,67 @@
-# Indicator Contract
+# Indicator Contract — reference
 
-Indicators are deterministic feature calculations used by signals, backtests,
-rankings, and explanations.
+Indicators are **deterministic** feature calculations used by signals, backtests,
+rankings, and explanations — the same candles always produce the same numbers. This
+is the contract reference; for a step-by-step build, see the
+**[Indicator guide](guides/indicator.md)**.
 
-QuantGlass separates the indicator surface into two maturity levels:
+## `IndicatorDefinition`
 
-- `computed`: implemented in the engine today and eligible for signal/backtest
+| Field | Type | Notes |
+| --- | --- | --- |
+| `id`, `name`, `description` | `str` | |
+| `category` | `str` | e.g. `"liquidity"`, `"trend"`, `"volatility"` |
+| `inputs` | `tuple[str, ...]` | candle fields read (e.g. `("close", "volume")`) |
+| `outputs` | `tuple[str, ...]` | named series produced |
+| `maturity` | `"computed" \| "catalog"` | see below |
+| `families` | `tuple[str, ...]` | grouping tags |
+| `source` | `"built-in" \| "extension"` | use `"extension"` |
+| `extension_id` | `str \| None` | your manifest id |
+
+### Maturity levels
+
+- **`computed`** — the extension also wires a deterministic calculation
+  (`IndicatorPlugin.compute`) into an executable path; eligible for signal/backtest
   use.
-- `catalog`: listed as a documented contribution target, but not yet computed by
-  the core engine.
+- **`catalog`** — listed as a documented contribution target, metadata only, **not**
+  computed by the engine. Use this for metadata-only packs; never imply a `catalog`
+  entry affects live signals.
 
-Community extensions can register additional indicators through
-`IndicatorDefinition`. Use `catalog` for metadata-only packs and `computed` only
-when the extension also wires a deterministic calculation into an executable
-service path.
+## `IndicatorPlugin` (executable contract)
+
+```python
+class IndicatorPlugin(Protocol):
+    def compute(
+        self,
+        candles: list[dict[str, Any]],
+        context: dict[str, Any],
+    ) -> dict[str, list[float | None]]: ...
+```
+
+Each returned series is keyed by an `outputs` name and **aligned to the candles**
+(same length), with `None` across the warm-up region.
 
 ## Rules
 
-- No network calls.
-- No hidden state.
-- No future candle access.
-- Return one output value per input candle.
-- Use `None` where warmup periods make a value unavailable.
+- **No network calls, no hidden state, no future-candle access.**
+- Return **one value per candle**; use `None` where warm-up makes a value undefined
+  rather than back-filling.
+- Outputs are a pure function of `candles` (and `context` parameters) — no clocks,
+  no randomness.
+- Declare exactly the `inputs` you read and the `outputs` you emit.
 - Add known-answer tests.
 
-## Preferred Shape
+## Test expectations
 
-```python
-def _indicator(values: list[float], period: int) -> list[float | None]:
-    ...
-```
-
-For multi-column indicators, return a tuple of aligned lists.
-
-## Test Expectations
-
-Add tests under `apps/backend/tests/` that cover:
-
-- Warmup behavior.
-- Constant series behavior.
-- Trending series behavior.
-- Edge cases such as empty input or zero division.
+Cover: warm-up behavior · constant series · trending series · edge cases (empty
+input, zero division) · determinism (same input → identical output).
 
 ## Documentation
 
-If an indicator appears in the UI or confidence basis, update:
+- If an indicator appears in the UI or confidence basis, update
+  `docs/technical/04-signal-engine.md` and `docs/user-guide/06-signals.md` in the
+  main repo.
+- If added only as a `catalog` entry, update the category/family description and
+  avoid implying it affects live signals.
 
-- `docs/technical/04-signal-engine.md`
-- `docs/user-guide/06-signals.md`
-
-If an indicator is added only as a catalog entry, update the category/family
-description and avoid implying that it affects live signals.
+> Educational and research tooling. Nothing here is financial advice.
